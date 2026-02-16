@@ -13,7 +13,9 @@ export async function middleware(request: NextRequest) {
     // PART A: COMPLIANCE LAYER (The Kill Switch) 🛑
     // =========================================================
     // This runs BEFORE Auth. If you are blocked, you are blocked.
-    const { nextUrl, geo } = request
+    // This runs BEFORE Auth. If you are blocked, you are blocked.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { nextUrl, geo } = request as any
     const country = geo?.country || 'IN' // Default to India dev
     const region = geo?.region || 'UNKNOWN'
     const regionCode = `${country}-${region}`
