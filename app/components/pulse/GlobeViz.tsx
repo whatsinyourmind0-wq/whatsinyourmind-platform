@@ -98,7 +98,6 @@ export default function GlobeViz() {
                 pointColor="color"
                 pointAltitude={0}
                 pointRadius={0.5}
-                pointPulseRing={true}
             />
         </div>
     )
