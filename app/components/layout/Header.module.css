@@ -1,0 +1,36 @@
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(5, 5, 5, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+}
+
+.inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: var(--space-md);
+    height: 56px;
+}
+
+.logoIcon {
+    color: var(--accent-cyan);
+    filter: drop-shadow(var(--glow-cyan));
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+@media (max-width: 640px) {
+    .inner {
+        padding: var(--space-sm) var(--space-md);
+        height: 48px;
+    }
+}

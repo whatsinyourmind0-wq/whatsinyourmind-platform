@@ -1,0 +1,64 @@
+.feed {
+  padding-top: var(--space-lg);
+  padding-bottom: 100px;
+}
+
+.demoNotice {
+  text-align: center;
+  padding: var(--space-sm);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-lg);
+  color: var(--accent-amber);
+}
+
+.posts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.empty {
+  text-align: center;
+  padding: var(--space-3xl) var(--space-lg);
+}
+
+.emptyHint {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin-top: var(--space-sm);
+}
+
+/* Floating Action Button */
+.fab {
+  position: fixed;
+  bottom: var(--space-xl);
+  right: var(--space-xl);
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-cyan);
+  color: var(--bg-void);
+  border-radius: 50%;
+  box-shadow: var(--glow-cyan), 0 4px 20px rgba(0, 0, 0, 0.5);
+  transition: all var(--transition-fast);
+  z-index: 50;
+}
+
+.fab:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px var(--accent-cyan), 0 4px 30px rgba(0, 0, 0, 0.6);
+  color: var(--bg-void);
+}
+
+@media (max-width: 640px) {
+  .fab {
+    bottom: var(--space-md);
+    right: var(--space-md);
+    width: 48px;
+    height: 48px;
+  }
+}

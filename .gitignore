@@ -1,0 +1,41 @@
+# === Dependencies ===
+node_modules/
+
+# === Next.js ===
+.next/
+out/
+
+# === Environment & Secrets ===
+.env
+.env.local
+.env.*.local
+*.pem
+
+# === Database ===
+/data/
+*.db
+*.sqlite
+supabase/.temp/
+
+# === Logs ===
+*.log
+npm-debug.log*
+
+# === OS ===
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# === IDE ===
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# === Build ===
+/build/
+/dist/
+
+# === Misc ===
+*.tsbuildinfo
+next-env.d.ts

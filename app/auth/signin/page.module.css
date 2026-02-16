@@ -1,0 +1,82 @@
+.page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 56px);
+    padding: var(--space-lg);
+}
+
+.card {
+    width: 100%;
+    max-width: 400px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-2xl) var(--space-xl);
+}
+
+.logoBlock {
+    text-align: center;
+    margin-bottom: var(--space-md);
+}
+
+.tagline {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: var(--space-sm);
+    letter-spacing: 0.02em;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+}
+
+.oauthBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    width: 100%;
+    padding: var(--space-md);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    background: transparent;
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.oauthBtn:hover {
+    background: var(--bg-elevated);
+}
+
+.google:hover {
+    border-color: #4285f4;
+    box-shadow: 0 0 8px rgba(66, 133, 244, 0.3);
+}
+
+.discord:hover {
+    border-color: #5865f2;
+    box-shadow: 0 0 8px rgba(88, 101, 242, 0.3);
+}
+
+.github:hover {
+    border-color: #f0f0f5;
+    box-shadow: 0 0 8px rgba(240, 240, 245, 0.15);
+}
+
+.footer {
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-top: var(--space-xl);
+    letter-spacing: 0.04em;
+}

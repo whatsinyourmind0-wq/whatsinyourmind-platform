@@ -1,0 +1,55 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+}
+
+.metaLeft {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.topicBadge {
+    font-weight: 600;
+}
+
+.content {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--text-primary);
+    word-break: break-word;
+    white-space: pre-wrap;
+}
+
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.author {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+}
+
+.verified {
+    color: var(--accent-cyan);
+    margin-left: 4px;
+    font-size: 0.7rem;
+    filter: drop-shadow(var(--glow-cyan));
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+}

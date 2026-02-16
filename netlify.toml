@@ -1,0 +1,9 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[dev]
+  command = "npm run dev"
+
+# Next.js handles its own redirects and routing.
+# We do NOT need the [[redirects]] block here.
