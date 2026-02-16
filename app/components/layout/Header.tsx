@@ -35,7 +35,7 @@ export default function Header() {
         <header className={styles.header}>
             <div className={styles.inner}>
                 <Link href="/" className="text-logo">
-                    <Zap size={16} className={styles.logoIcon} />
+                    <span style={{ fontSize: '1.25rem', marginRight: '0.5rem', lineHeight: 1 }}>🍉</span>
                     WHATSINYOURMIND
                 </Link>
 

@@ -102,32 +102,38 @@ export default function FeedPage() {
           .order('created_at', { ascending: false })
           .limit(50)
 
-        if (!error && data && data.length > 0) {
-          const mapped: PostData[] = data.map((p: any) => {
-            const profile = p.profiles
-            return {
-              id: p.id,
-              content: p.content,
-              // Handle both joined tables and raw IDs if join fails
-              topic: p.topic?.id || p.topic || 'the-void',
-              tone: p.tone?.id || p.tone || 'casual',
-              resonanceCount: p.resonance_count || 0,
-              commentCount: p.comment_count || 0,
-              flagCount: p.flag_count || 0,
-              createdAt: p.created_at,
-              author: {
-                username: profile?.username || 'anonymous',
-                displayName: profile?.display_name || 'Anonymous',
-                isVerified: profile?.is_verified || false,
-              },
-            }
-          })
-          setPosts(mapped)
-          setIsLive(true)
+        if (error) throw error
+
+        if (data) {
+          if (data.length > 0) {
+            const mapped: PostData[] = data.map((p: any) => {
+              const profile = p.profiles
+              return {
+                id: p.id,
+                content: p.content,
+                // Handle both joined tables and raw IDs if join fails
+                topic: p.topic?.id || p.topic || 'the-void',
+                tone: p.tone?.id || p.tone || 'casual',
+                resonanceCount: p.resonance_count || 0,
+                commentCount: p.comment_count || 0,
+                flagCount: p.flag_count || 0,
+                createdAt: p.created_at,
+                author: {
+                  username: profile?.username || 'anonymous',
+                  displayName: profile?.display_name || 'Anonymous',
+                  isVerified: profile?.is_verified || false,
+                },
+              }
+            })
+            setPosts(mapped)
+          } else {
+            setPosts([]) // Clear demo posts if DB is connected but empty
+          }
+          setIsLive(true) // Database is connected
         }
       } catch (e) {
         // Database not connected yet — use demo posts
-        console.log('Using demo posts')
+        console.log('Using demo posts', e)
       }
     }
 
