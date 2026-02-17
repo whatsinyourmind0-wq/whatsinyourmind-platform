@@ -82,11 +82,8 @@ export default function GlobeViz() {
         <div style={{ width: '100%', height: '100%' }}>
             <Globe
                 ref={globeEl}
-                // High-Res Blue Marble (Day) or Night Lights (Night)
-                // Using Blue Marble for clarity as requested, or Night Lights with better res.
-                // Let's go with a high-quality Night Lights if available, or Blue Marble.
-                // Blue Marble is often clearer. Let's try Blue Marble first.
-                globeImageUrl="//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
+                // High-Res Night Lights (Cyber Dark Theme)
+                globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
                 bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
                 backgroundImageUrl="//unpkg.com/three-globe/example/img/night-sky.png"
 

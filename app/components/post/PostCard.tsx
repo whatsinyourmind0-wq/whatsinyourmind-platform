@@ -1,3 +1,5 @@
+'use client'
+
 import { useState } from 'react'
 import { Activity, MessageSquare, Flag } from 'lucide-react'
 import { getTopicById, getTopicColor } from '@/app/lib/constants/topics'
