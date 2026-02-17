@@ -94,13 +94,11 @@ body::after {
   height: 100%;
   pointer-events: none;
   z-index: 9999;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 2px,
-    rgba(0, 0, 0, 0.03) 2px,
-    rgba(0, 0, 0, 0.03) 4px
-  );
+  background: repeating-linear-gradient(0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.03) 2px,
+      rgba(0, 0, 0, 0.03) 4px);
 }
 
 /* --- Links --- */
@@ -319,7 +317,7 @@ textarea.input {
   font-size: 1.1rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--text-primary);
+  color: #ffffff;
   text-decoration: none;
 }
 

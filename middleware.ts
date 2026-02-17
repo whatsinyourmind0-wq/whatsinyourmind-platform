@@ -63,7 +63,8 @@ export async function middleware(request: NextRequest) {
     // Protected routes — redirect to sign-in if not authenticated
     // Added '/pulse' to protected routes? No, let pulse be public but maybe read-only? 
     // Let's keep pulse public for now as per "Transparency".
-    const protectedPaths = ['/post/new', '/profile', '/auth/setup']
+    // [SECURITY UPDATE]: Added '/admin' to protected routes.
+    const protectedPaths = ['/post/new', '/profile', '/auth/setup', '/admin']
     const isProtected = protectedPaths.some(path =>
         request.nextUrl.pathname.startsWith(path)
     )

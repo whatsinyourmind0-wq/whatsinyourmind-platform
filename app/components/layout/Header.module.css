@@ -2,9 +2,8 @@
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(5, 5, 5, 0.85);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
+    background: #000000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .inner {
@@ -20,6 +19,34 @@
 .logoIcon {
     color: var(--accent-cyan);
     filter: drop-shadow(var(--glow-cyan));
+}
+
+.langSelect {
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
+    margin-right: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.langSelect:hover {
+    color: var(--foreground);
+    border-color: var(--primary);
+}
+
+.langSelect:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.auth {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
 .nav {

@@ -82,12 +82,18 @@ export default function FeedPage() {
   const [activeTopic, setActiveTopic] = useState<string | null>(null)
   const [posts, setPosts] = useState<PostData[]>(DEMO_POSTS)
   const [isLive, setIsLive] = useState(false)
+  const [currentUser, setCurrentUser] = useState<any>(null)
   const supabase = createClient()
 
   // Try to load real posts from Supabase
   useEffect(() => {
-    const loadPosts = async () => {
+    const loadData = async () => {
+      // 1. Get User
+      const { data: { user } } = await supabase.auth.getUser()
+      setCurrentUser(user)
+
       try {
+        // 2. Get Posts
         const { data, error } = await supabase
           .from('posts')
           .select(`
@@ -127,7 +133,20 @@ export default function FeedPage() {
             })
             setPosts(mapped)
           } else {
-            setPosts([]) // Clear demo posts if DB is connected but empty
+            // ... Keep existing demo logic ...
+            setPosts([
+              {
+                id: 'test-1',
+                content: 'The way Mumbai local trains compress 4 million stories into 6:30 AM is something no algorithm will ever understand. Every face is a novel that starts at Churchgate and ends at Virar.',
+                topic: 'the-transit',
+                tone: 'observational',
+                resonanceCount: 28,
+                commentCount: 7,
+                flagCount: 0,
+                createdAt: new Date().toISOString(),
+                author: { username: 'urban_pulse', displayName: 'Urban Pulse', isVerified: true },
+              }
+            ])
           }
           setIsLive(true) // Database is connected
         }
@@ -137,7 +156,7 @@ export default function FeedPage() {
       }
     }
 
-    loadPosts()
+    loadData()
   }, [])
 
   // Filter by topic
@@ -185,6 +204,7 @@ export default function FeedPage() {
               <PostCard
                 key={post.id}
                 post={post}
+                currentUser={currentUser}
                 onResonate={handleResonate}
               />
             ))

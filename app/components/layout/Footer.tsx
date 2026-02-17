@@ -3,31 +3,26 @@ import Link from 'next/link'
 export default function Footer() {
     return (
         <footer style={{
-            borderTop: '1px solid var(--surface-border)',
-            padding: 'var(--space-xl) var(--space-md)',
-            marginTop: 'auto', // Pushes footer to bottom if content is short
-            textAlign: 'center'
+            padding: '2rem 1rem',
+            textAlign: 'center',
+            borderTop: '1px solid var(--border-light)',
+            marginTop: 'auto',
+            background: 'var(--bg-void)'
         }}>
-            <div className="container">
-                <p className="mono" style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
-                    &copy; 2026 WhatsInYourMind. All rights reserved.
-                </p>
-
-                <div style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    gap: 'var(--space-md)',
-                    marginTop: 'var(--space-md)',
-                    fontSize: '0.9rem'
-                }}>
-                    <Link href="/terms" className="nav-link">Terms</Link>
-                    <Link href="/transparency" className="nav-link">Transparency</Link>
-                    <Link href="/pulse" className="nav-link">The Pulse</Link>
-                    <a href="https://github.com/wiym-platform" target="_blank" rel="noopener noreferrer" className="nav-link">GitHub</a>
+            <div className="container" style={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'center' }}>
+                <div style={{ display: 'flex', gap: '1.5rem', fontSize: '0.8rem' }} className="mono text-muted">
+                    <Link href="/terms" className="hover:text-primary transition-colors">
+                        TERMS
+                    </Link>
+                    <Link href="/privacy" className="hover:text-primary transition-colors">
+                        PRIVACY
+                    </Link>
+                    <Link href="/admin" className="hover:text-primary transition-colors">
+                        SYSTEM
+                    </Link>
                 </div>
-
-                <div style={{ marginTop: 'var(--space-lg)', opacity: 0.5, fontSize: '0.8rem' }}>
-                    <p>Designed for the Shadows. Built for the Light.</p>
+                <div className="text-sm text-secondary" style={{ opacity: 0.5 }}>
+                    &copy; {new Date().getFullYear()} WhatsInYourMind. All echoes fade.
                 </div>
             </div>
         </footer>

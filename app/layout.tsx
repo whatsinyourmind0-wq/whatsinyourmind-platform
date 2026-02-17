@@ -1,7 +1,15 @@
 import type { Metadata } from 'next'
+import { Inter, Noto_Sans_JP } from 'next/font/google'
 import './globals.css'
 import Header from './components/layout/Header'
 import Footer from './components/layout/Footer'
+
+const inter = Inter({ subsets: ['latin'] })
+const notoSansJP = Noto_Sans_JP({
+  subsets: ['latin'],
+  weight: ['400', '500', '700'],
+  variable: '--font-noto-sans-jp'
+})
 
 export const metadata: Metadata = {
   title: 'WhatsInYourMind — The Anonymous Coffee Shop of the Internet',
@@ -15,6 +23,8 @@ export const metadata: Metadata = {
   },
 }
 
+import { LanguageProvider } from './lib/contexts/LanguageContext'
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -22,10 +32,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-        <Header />
-        <main style={{ flex: 1 }}>{children}</main>
-        <Footer />
+      <body className={`${inter.className} ${notoSansJP.variable}`} style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+        <LanguageProvider>
+          <Header />
+          <main style={{ flex: 1 }}>{children}</main>
+          <Footer />
+        </LanguageProvider>
       </body>
     </html>
   )

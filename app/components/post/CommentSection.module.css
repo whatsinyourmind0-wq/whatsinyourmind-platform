@@ -1,0 +1,146 @@
+.section {
+    margin-top: 1rem;
+    border-top: 1px solid var(--border-light);
+    padding-top: 1rem;
+    animation: fadeIn 0.3s ease;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+/* Scrollbar styling */
+.list::-webkit-scrollbar {
+    width: 4px;
+}
+
+.list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.list::-webkit-scrollbar-thumb {
+    background: var(--border-light);
+    border-radius: 4px;
+}
+
+.commentItem {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: var(--radius-sm);
+    padding: 0.75rem;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+}
+
+.commentItem:hover {
+    border-color: var(--border-light);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.commentHeader {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.author {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.verified {
+    color: var(--accent);
+    font-size: 0.8rem;
+}
+
+.date {
+    margin-left: auto;
+    font-size: 0.7rem;
+    opacity: 0.7;
+}
+
+.content {
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    line-height: 1.4;
+    white-space: pre-wrap;
+    margin-bottom: 0.5rem;
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.input {
+    width: 100%;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-light);
+    font-size: 0.9rem;
+}
+
+.form {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.deleteBtn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    opacity: 0.5;
+    padding: 4px;
+}
+
+.deleteBtn:hover {
+    color: var(--status-error);
+    opacity: 1;
+}
+
+.loading,
+.empty {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    padding: 1rem;
+}
+
+.loginPrompt {
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    padding: 0.5rem;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: var(--radius-sm);
+}
+
+.error {
+    color: var(--status-error);
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

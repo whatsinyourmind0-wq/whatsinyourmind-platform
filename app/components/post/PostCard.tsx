@@ -1,8 +1,9 @@
-'use client'
-
+import { useState } from 'react'
 import { Activity, MessageSquare, Flag } from 'lucide-react'
 import { getTopicById, getTopicColor } from '@/app/lib/constants/topics'
 import { getToneById } from '@/app/lib/constants/tones'
+import TranslateButton from './TranslateButton'
+import CommentSection from './CommentSection'
 import styles from './PostCard.module.css'
 
 // IMPORTANT: This duplicates the DB type slightly for the UI prop, 
@@ -26,6 +27,7 @@ export interface PostData {
 
 interface PostCardProps {
     post: PostData
+    currentUser?: any
     onResonate?: (postId: string) => void
     onFlag?: (postId: string) => void
 }
@@ -42,7 +44,9 @@ function timeAgo(dateStr: string): string {
     return new Date(dateStr).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })
 }
 
-export default function PostCard({ post, onResonate, onFlag }: PostCardProps) {
+export default function PostCard({ post, currentUser, onResonate, onFlag }: PostCardProps) {
+    const [showComments, setShowComments] = useState(false)
+
     // FALLBACK: We still use the constants for now until we fully wire up the Dynamic Topics context
     const topic = getTopicById(post.topic)
     const tone = getToneById(post.tone)
@@ -96,7 +100,11 @@ export default function PostCard({ post, onResonate, onFlag }: PostCardProps) {
                         {post.resonanceCount > 0 && <span>{post.resonanceCount}</span>}
                     </button>
 
-                    <button className="icon-btn" aria-label="Comment">
+                    <button
+                        className={`icon-btn ${showComments ? 'active' : ''}`}
+                        onClick={() => setShowComments(!showComments)}
+                        aria-label="Comment"
+                    >
                         <MessageSquare size={16} />
                         {post.commentCount > 0 && <span>{post.commentCount}</span>}
                     </button>
@@ -108,8 +116,18 @@ export default function PostCard({ post, onResonate, onFlag }: PostCardProps) {
                     >
                         <Flag size={16} />
                     </button>
+
+                    {/* Translation Feature */}
+                    <div style={{ marginLeft: 'auto' }}>
+                        <TranslateButton text={post.content} />
+                    </div>
                 </div>
             </div>
+
+            {/* Comments Section - Only loaded if toggled */}
+            {showComments && (
+                <CommentSection postId={post.id} currentUser={currentUser} />
+            )}
         </article>
     )
 }

@@ -82,22 +82,40 @@ export default function GlobeViz() {
         <div style={{ width: '100%', height: '100%' }}>
             <Globe
                 ref={globeEl}
-                globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
+                // High-Res Blue Marble (Day) or Night Lights (Night)
+                // Using Blue Marble for clarity as requested, or Night Lights with better res.
+                // Let's go with a high-quality Night Lights if available, or Blue Marble.
+                // Blue Marble is often clearer. Let's try Blue Marble first.
+                globeImageUrl="//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
+                bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
                 backgroundImageUrl="//unpkg.com/three-globe/example/img/night-sky.png"
+
+                // Arcs (Pulse)
                 arcsData={arcs}
                 arcColor="color"
                 arcDashLength={() => Math.random()}
                 arcDashGap={() => Math.random()}
                 arcDashAnimateTime={() => Math.random() * 4000 + 500}
-                atmosphereColor="#00ffcc"
+
+                // Atmosphere
+                atmosphereColor="#00aaff"
                 atmosphereAltitude={0.15}
-                // Points (The User Locations)
+
+                // Points (User Locations)
                 pointsData={arcs}
                 pointLat="startLat"
                 pointLng="startLng"
                 pointColor="color"
                 pointAltitude={0}
                 pointRadius={0.5}
+
+                // Interaction
+                onGlobeReady={() => {
+                    if (globeEl.current) {
+                        // Set initial POV
+                        globeEl.current.pointOfView({ lat: 20, lng: 77, altitude: 2.8 }, 1000)
+                    }
+                }}
             />
         </div>
     )
