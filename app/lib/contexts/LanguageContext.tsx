@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 
-type Language = 'en' | 'ja' | 'hi' | 'es' | 'fr'
+type Language = 'en' | 'ja' | 'hi' | 'es' | 'fr' | 'de' | 'zh' | 'ru' | 'pt' | 'ar' | 'ko'
 
 interface LanguageContextType {
     language: Language
@@ -17,9 +17,23 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     const [language, setLanguage] = useState<Language>('en')
 
     useEffect(() => {
-        // Load from localStorage if available
+        // 1. Check LocalStorage (Manual Override)
         const saved = localStorage.getItem('wiym-lang') as Language
-        if (saved) setLanguage(saved)
+        if (saved) {
+            setLanguage(saved)
+            return
+        }
+
+        // 2. Auto-Detect System Language (Smart Localization) 🧠
+        // Only if no manual override exists
+        if (typeof window !== 'undefined' && navigator.language) {
+            const sysLang = navigator.language.split('-')[0] // 'ja-JP' -> 'ja'
+            const supported: Language[] = ['en', 'ja', 'hi', 'es', 'fr', 'de', 'zh', 'ru', 'pt', 'ar', 'ko']
+
+            if (supported.includes(sysLang as Language)) {
+                setLanguage(sysLang as Language)
+            }
+        }
     }, [])
 
     const handleSetLanguage = (lang: Language) => {

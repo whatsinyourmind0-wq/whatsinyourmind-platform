@@ -96,7 +96,6 @@ export default function PostCard({ post, currentUser, onResonate, onFlag }: Post
                         title="Resonate · You are not alone"
                     >
                         <Activity size={16} />
-                        {/* Using Activity icon for 'Pulse/Resonance' */}
                         {post.resonanceCount > 0 && <span>{post.resonanceCount}</span>}
                     </button>
 
@@ -117,6 +116,19 @@ export default function PostCard({ post, currentUser, onResonate, onFlag }: Post
                         <Flag size={16} />
                     </button>
 
+                    <button
+                        className="icon-btn"
+                        onClick={(e) => {
+                            e.preventDefault()
+                            navigator.clipboard.writeText(`https://whatsinyourmind.com/post/${post.id}`)
+                            alert('Link copied to clipboard (Ghost Artifact secured) 👻')
+                        }}
+                        aria-label="Share"
+                        title="Share Artifact"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-share-2"><circle cx="18" cy="5" r="3" /><circle cx="6" cy="12" r="3" /><circle cx="18" cy="19" r="3" /><line x1="8.59" x2="15.42" y1="13.51" y2="17.49" /><line x1="15.41" x2="8.59" y1="6.51" y2="10.49" /></svg>
+                    </button>
+
                     {/* Translation Feature */}
                     <div style={{ marginLeft: 'auto' }}>
                         <TranslateButton text={post.content} />
@@ -125,9 +137,11 @@ export default function PostCard({ post, currentUser, onResonate, onFlag }: Post
             </div>
 
             {/* Comments Section - Only loaded if toggled */}
-            {showComments && (
-                <CommentSection postId={post.id} currentUser={currentUser} />
-            )}
-        </article>
+            {
+                showComments && (
+                    <CommentSection postId={post.id} currentUser={currentUser} />
+                )
+            }
+        </article >
     )
 }

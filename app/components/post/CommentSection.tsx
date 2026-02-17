@@ -105,6 +105,30 @@ export default function CommentSection({ postId, currentUser }: CommentSectionPr
         }
     }
 
+    const handleFlagComment = async (commentId: string) => {
+        if (!currentUser) {
+            alert('You must be signed in to signal noise.')
+            return
+        }
+
+        const reason = prompt('Why report this comment? (Spam, Hate, Illegal)')
+        if (!reason) return
+
+        const { error } = await supabase.from('flags').insert({
+            comment_id: commentId, // Requires SCHEMA UPDATE in _ADD_COMMENT_FLAGS.sql
+            user_id: currentUser.id,
+            reason: reason,
+            status: 'pending'
+        })
+
+        if (error) {
+            console.error('Flag error:', error)
+            alert('Signal failed to reach the tower.')
+        } else {
+            alert('Comment signaled. We are watching.')
+        }
+    }
+
     return (
         <div className={styles.section}>
             {/* List */}
@@ -135,8 +159,15 @@ export default function CommentSection({ postId, currentUser }: CommentSectionPr
 
                             <p className={styles.content}>{comment.content}</p>
 
-                            {/* Translation for Comments */}
+                            {/* Actions Row */}
                             <div className={styles.actions}>
+                                <button
+                                    className="icon-btn flag"
+                                    onClick={() => handleFlagComment(comment.id)}
+                                    title="Flag Comment"
+                                >
+                                    <AlertCircle size={14} />
+                                </button>
                                 <TranslateButton text={comment.content} />
                             </div>
                         </div>
