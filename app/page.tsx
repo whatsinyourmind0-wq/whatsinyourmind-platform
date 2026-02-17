@@ -14,6 +14,7 @@ export default function FeedPage() {
   const [activeTopic, setActiveTopic] = useState<string | null>(null)
   const [posts, setPosts] = useState<PostData[]>([])
   const [isLive, setIsLive] = useState(false)
+  const [isLoading, setIsLoading] = useState(true) // Start loading
   const [currentUser, setCurrentUser] = useState<any>(null)
   const supabase = createClient()
 
@@ -67,13 +68,15 @@ export default function FeedPage() {
         }
       } catch (e) {
         console.error('Error loading posts:', e)
+      } finally {
+        setIsLoading(false)
       }
     }
 
     loadData()
   }, [])
 
-  // Filter by topic
+  /* Filters */
   const filteredPosts = activeTopic
     ? posts.filter(p => p.topic === activeTopic)
     : posts
@@ -127,7 +130,7 @@ export default function FeedPage() {
 
       <div className={`container ${styles.feed}`}>
         {/* Status Indicator */}
-        {!isLive && (
+        {!isLoading && !isLive && (
           <div className={styles.demoNotice}>
             <span className="mono">
               ● DEMO MODE — Connect Supabase to go live
@@ -137,7 +140,11 @@ export default function FeedPage() {
 
         {/* Posts */}
         <div className={styles.posts}>
-          {filteredPosts.length > 0 ? (
+          {isLoading ? (
+            <div className={styles.empty}>
+              <p className="mono">Scanning for signals...</p>
+            </div>
+          ) : filteredPosts.length > 0 ? (
             filteredPosts.map(post => (
               <PostCard
                 key={post.id}
