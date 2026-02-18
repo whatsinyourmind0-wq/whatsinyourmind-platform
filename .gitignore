@@ -44,3 +44,10 @@ next-env.d.ts
 docs/
 .antigravity/
 
+# === Documentation & Sensitive Data ===
+docs/
+LLM opinion on projects/
+*.md
+!README.md
+
+
