@@ -41,6 +41,7 @@ function PulseContent() {
     // Live Metrics
     const [totalPosts, setTotalPosts] = useState(0)
     const [avgSync, setAvgSync] = useState(0.4821)
+    const [dominantEmotion, setDominantEmotion] = useState('neutral')
     const [streamPosts, setStreamPosts] = useState<StreamPost[]>([])
 
     // Fetch Data
@@ -52,14 +53,32 @@ function PulseContent() {
             const { count } = await supabase.from('posts').select('*', { count: 'exact', head: true })
             if (count) setTotalPosts(count)
 
-            // Get Latest Stream Posts
+            // Get Latest Stream Posts (for ticker)
             const { data } = await supabase
                 .from('posts')
-                .select('id, content, created_at, topic')
+                .select('id, content, created_at, topic, emotion')
                 .order('created_at', { ascending: false })
                 .limit(10)
 
-            if (data) setStreamPosts(data as any)
+            if (data) {
+                setStreamPosts(data as any)
+                // Calculate dominant emotion from recent posts
+                const emotionCounts: Record<string, number> = {}
+                data.forEach((p: any) => {
+                    const e = p.emotion || 'neutral'
+                    emotionCounts[e] = (emotionCounts[e] || 0) + 1
+                })
+
+                let max = 0
+                let dom = 'neutral'
+                Object.entries(emotionCounts).forEach(([e, count]) => {
+                    if (count > max) {
+                        max = count
+                        dom = e
+                    }
+                })
+                setDominantEmotion(dom)
+            }
 
             // Simulate Sync fluctuation
             setAvgSync(0.4 + Math.random() * 0.2)
@@ -81,7 +100,7 @@ function PulseContent() {
 
             {/* 2D Digital Layer */}
             <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 1 }}>
-                <PulseDigital />
+                <PulseDigital emotion={dominantEmotion} />
             </div>
 
             {/* UI Overlay - Hidden in Stream Mode */}
@@ -119,7 +138,7 @@ function PulseContent() {
                         </h1>
                         <p className="mono" style={{ color: 'var(--primary)', letterSpacing: '2px', marginBottom: '1rem' }}>
                             <Zap size={14} style={{ display: 'inline', marginRight: '8px' }} />
-                            GLOBAL RESONANCE VISUALIZER
+                            GLOBAL EMOTIONAL RESONANCE
                         </p>
 
                         <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
@@ -133,7 +152,7 @@ function PulseContent() {
                                 borderRadius: '4px',
                                 border: '1px solid var(--secondary)',
                             }}>
-                                AVG_SYNC: <span style={{ color: '#fff' }}>{avgSync.toFixed(4)}</span> Hz
+                                MOOD: <span style={{ color: '#fff', textTransform: 'uppercase' }}>{dominantEmotion}</span>
                             </div>
 
                             <div style={{

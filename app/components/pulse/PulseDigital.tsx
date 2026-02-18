@@ -3,8 +3,24 @@
 import { useEffect, useRef } from 'react'
 import styles from './PulseDigital.module.css'
 
-export default function PulseDigital() {
+type PulseDigitalProps = {
+    emotion?: string
+}
+
+export default function PulseDigital({ emotion = 'neutral' }: PulseDigitalProps) {
     const canvasRef = useRef<HTMLCanvasElement>(null)
+
+    // Emotion Color Map (The Mood Ring)
+    const EMOTION_COLORS: Record<string, string> = {
+        joy: '#FFD700',       // Gold
+        anxiety: '#FF4500',   // OrangeRed
+        sadness: '#4169E1',   // RoyalBlue
+        anger: '#DC143C',     // Crimson
+        waiting: '#32CD32',   // LimeGreen
+        neutral: '#00f3ff',   // Cyan (Default)
+        tech: '#00f3ff',      // Cyan
+        grind: '#FF3B30'      // Red
+    }
 
     useEffect(() => {
         const canvas = canvasRef.current
@@ -51,7 +67,8 @@ export default function PulseDigital() {
             ctx.fillStyle = 'rgba(4, 13, 33, 0.05)'
             ctx.fillRect(0, 0, width, height)
 
-            ctx.fillStyle = '#00f3ff' // Cyan glow
+            // Get target color based on prop
+            const targetColor = EMOTION_COLORS[emotion] || EMOTION_COLORS.neutral
             ctx.font = `${fontSize}px monospace`
 
             for (let i = 0; i < drops.length; i++) {
@@ -62,11 +79,11 @@ export default function PulseDigital() {
                 // Add a random glow effect occasionally
                 if (Math.random() > 0.98) {
                     ctx.shadowBlur = 10
-                    ctx.shadowColor = '#00f3ff'
+                    ctx.shadowColor = targetColor
                     ctx.fillStyle = '#fff'
                 } else {
                     ctx.shadowBlur = 0
-                    ctx.fillStyle = '#008899' // Darker cyan for trail
+                    ctx.fillStyle = targetColor
                 }
 
                 ctx.fillText(text, i * fontSize, drops[i] * fontSize)
@@ -92,7 +109,7 @@ export default function PulseDigital() {
             window.removeEventListener('resize', resize)
             cancelAnimationFrame(animationFrameId)
         }
-    }, [])
+    }, [emotion]) // Re-run effect when emotion changes
 
     return (
         <canvas

@@ -133,6 +133,17 @@ export default function NewPostPage() {
                 console.warn('Language detection failed', err)
             }
 
+            // ---------------------------------------------------------
+            // EMOTIONAL TAGGING (The Heart) ❤️
+            // ---------------------------------------------------------
+            let emotionalState = { emotion: 'neutral', intensity: 0.5 }
+            try {
+                const { analyzeSentiment } = await import('@/app/lib/analysis/sentiment')
+                emotionalState = analyzeSentiment(content.trim())
+            } catch (err) {
+                console.warn('Sentiment analysis failed', err)
+            }
+
             const { error: insertError } = await supabase
                 .from('posts')
                 .insert({
@@ -144,6 +155,10 @@ export default function NewPostPage() {
 
                     // 🧠 AI TAGS (The Polyglot)
                     auto_tags: [`lang:${detectedLang}`],
+
+                    // ❤️ EMOTIONAL METADATA
+                    emotion: emotionalState.emotion,
+                    intensity: emotionalState.intensity,
 
                     // 🌍 PULSE LOCATION
                     location_iso: locationData.iso,
