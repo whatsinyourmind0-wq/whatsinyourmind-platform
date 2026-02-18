@@ -8,7 +8,8 @@ import { Suspense, useState, useEffect } from 'react'
 import { createClient } from '@/app/lib/supabase/client'
 
 // Dynamic import to avoid SSR issues with Three.js/Window
-const GlobeViz = dynamic(() => import('@/app/components/pulse/GlobeViz'), {
+// Dynamic import to avoid SSR issues with Canvas
+const PulseDigital = dynamic(() => import('@/app/components/pulse/PulseDigital'), {
     ssr: false,
     loading: () => (
         <div style={{
@@ -19,7 +20,7 @@ const GlobeViz = dynamic(() => import('@/app/components/pulse/GlobeViz'), {
             color: 'var(--primary)',
             fontFamily: 'monospace'
         }}>
-            INITIALIZING GLOBAL NETWORK...
+            INITIALIZING DIGITAL NETWORK...
         </div>
     )
 })
@@ -78,9 +79,9 @@ function PulseContent() {
             background: '#040d21'
         }}>
 
-            {/* 3D Layer */}
+            {/* 2D Digital Layer */}
             <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 1 }}>
-                <GlobeViz />
+                <PulseDigital />
             </div>
 
             {/* UI Overlay - Hidden in Stream Mode */}

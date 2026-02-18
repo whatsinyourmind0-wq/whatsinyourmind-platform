@@ -43,19 +43,7 @@ export default function Header() {
                 </Link>
 
                 <nav className={styles.nav}>
-                    {/* Language Selector */}
-                    <select
-                        className={styles.langSelect}
-                        value={language}
-                        onChange={(e) => setLanguage(e.target.value as any)}
-                        aria-label="Select Language"
-                    >
-                        <option value="en">English</option>
-                        <option value="ja">日本語</option>
-                        <option value="hi">हिंदी</option>
-                        <option value="es">Español</option>
-                        <option value="fr">Français</option>
-                    </select>
+                    {/* Language Selector Removed for Mobile Optimization */}
 
                     {user ? (
                         <>

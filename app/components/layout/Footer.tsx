@@ -11,6 +11,9 @@ export default function Footer() {
         }}>
             <div className="container" style={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'center' }}>
                 <div style={{ display: 'flex', gap: '1.5rem', fontSize: '0.8rem' }} className="mono text-muted">
+                    <Link href="/pulse" className="hover:text-primary transition-colors" style={{ color: 'var(--accent-cyan)', textShadow: '0 0 10px var(--glow-cyan)' }}>
+                        PULSE
+                    </Link>
                     <Link href="/terms" className="hover:text-primary transition-colors">
                         TERMS
                     </Link>
