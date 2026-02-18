@@ -302,3 +302,51 @@ CREATE INDEX IF NOT EXISTS idx_posts_emotion ON posts(emotion);
 COMMENT ON COLUMN posts.emotion IS 'Dominant emotion of the post (joy, anxiety, sadness, anger, waiting, neutral)';
 COMMENT ON COLUMN posts.intensity IS 'Intensity of the emotion from 0.0 to 1.0';
 
+-- ========== 12. SIGNAL ROOMS (V1.2) ==========
+-- Added 2026-02-18: Ephemeral Communities
+CREATE TABLE IF NOT EXISTS rooms (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  name TEXT NOT NULL,
+  description TEXT,
+  topic_id TEXT REFERENCES topics(id),
+  expires_at TIMESTAMPTZ NOT NULL DEFAULT (NOW() + INTERVAL '24 hours'),
+  created_by UUID REFERENCES profiles(id) ON DELETE SET NULL,
+  is_active BOOLEAN DEFAULT TRUE,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+ALTER TABLE posts 
+ADD COLUMN IF NOT EXISTS room_id UUID REFERENCES rooms(id) ON DELETE CASCADE;
+
+CREATE INDEX IF NOT EXISTS idx_rooms_expires_at ON rooms(expires_at);
+CREATE INDEX IF NOT EXISTS idx_rooms_is_active ON rooms(is_active);
+CREATE INDEX IF NOT EXISTS idx_posts_room_id ON posts(room_id);
+
+ALTER TABLE rooms ENABLE ROW LEVEL SECURITY;
+
+-- Public read active rooms
+DROP POLICY IF EXISTS "Public read active rooms" ON rooms;
+CREATE POLICY "Public read active rooms" ON rooms 
+FOR SELECT USING (is_active = TRUE AND expires_at > NOW());
+
+-- Trigger for expiry validity on post
+CREATE OR REPLACE FUNCTION check_room_active()
+RETURNS TRIGGER AS $$
+BEGIN
+  IF NEW.room_id IS NOT NULL THEN
+    IF NOT EXISTS (SELECT 1 FROM rooms WHERE id = NEW.room_id AND is_active = TRUE AND expires_at > NOW()) THEN
+        RAISE EXCEPTION 'Room has expired or is inactive.';
+    END IF;
+  END IF;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS trigger_check_room_expiry ON posts;
+CREATE TRIGGER trigger_check_room_expiry
+BEFORE INSERT ON posts
+FOR EACH ROW
+EXECUTE FUNCTION check_room_active();
+
+COMMENT ON TABLE rooms IS 'Ephemeral 24-hour chat rooms based on emotional themes.';
+

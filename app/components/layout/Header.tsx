@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { Zap, LogIn, LogOut, PenLine, User } from 'lucide-react'
+import { Zap, LogIn, LogOut, PenLine, User, Users } from 'lucide-react'
 import { createClient } from '@/app/lib/supabase/client'
 import type { User as SupabaseUser } from '@supabase/supabase-js'
 import styles from './Header.module.css'
@@ -44,6 +44,14 @@ export default function Header() {
 
                 <nav className={styles.nav}>
                     {/* Language Selector Removed for Mobile Optimization */}
+
+                    <Link href="/pulse" className="btn btn-ghost" title="Global Pulse">
+                        <Zap size={16} />
+                    </Link>
+
+                    <Link href="/rooms" className="btn btn-ghost" title="Signal Rooms">
+                        <Users size={16} />
+                    </Link>
 
                     {user ? (
                         <>

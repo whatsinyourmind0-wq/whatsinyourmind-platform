@@ -1,0 +1,154 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    /* Full viewport setup */
+    max-width: 800px;
+    margin: 0 auto;
+    border-left: 1px solid var(--border-light);
+    border-right: 1px solid var(--border-light);
+    background: rgba(4, 13, 33, 0.95);
+}
+
+.header {
+    flex-shrink: 0;
+    padding: var(--space-md);
+    border-bottom: 1px solid var(--border-light);
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    background: rgba(4, 13, 33, 0.95);
+    backdrop-filter: blur(10px);
+}
+
+.backBtn {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: var(--space-xs);
+}
+
+.roomTitle {
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.chatArea {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.message {
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.05);
+    border-left: 3px solid transparent;
+    max-width: 85%;
+    align-self: flex-start;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Emotion Variants */
+.joy {
+    border-color: #FFD700;
+    background: rgba(255, 215, 0, 0.05);
+}
+
+.anxiety {
+    border-color: #FF4500;
+    background: rgba(255, 69, 0, 0.05);
+}
+
+.sadness {
+    border-color: #4169E1;
+    background: rgba(65, 105, 225, 0.05);
+}
+
+.anger {
+    border-color: #DC143C;
+    background: rgba(220, 20, 60, 0.05);
+}
+
+.neutral {
+    border-color: var(--text-secondary);
+}
+
+.msgMeta {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 4px;
+    font-size: 0.75rem;
+}
+
+.emotionTag {
+    text-transform: uppercase;
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+    font-weight: 700;
+}
+
+.msgContent {
+    line-height: 1.5;
+    word-break: break-word;
+}
+
+.inputArea {
+    flex-shrink: 0;
+    padding: var(--space-md);
+    border-top: 1px solid var(--border-light);
+    display: flex;
+    gap: var(--space-sm);
+    background: var(--background);
+}
+
+.input {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-full);
+    padding: 10px 20px;
+    color: var(--foreground);
+    font-family: inherit;
+}
+
+.input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
+}
+
+.sendBtn {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: var(--primary);
+    border: none;
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.sendBtn:hover {
+    transform: scale(1.05);
+}
